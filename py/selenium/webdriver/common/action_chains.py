@@ -83,8 +83,7 @@ class ActionChains(object):
         """
         if on_element:
             self.move_to_element(on_element)
-        self._actions.append(lambda: self._driver.execute(
-            Command.CLICK, {'button': 0}))
+        self._actions.append(lambda: on_element.click())
         return self
 
     def click_and_hold(self, on_element=None):
@@ -175,8 +174,8 @@ class ActionChains(object):
         if element:
             self.click(element)
         self._actions.append(lambda: self._driver.execute(
-            Command.SEND_KEYS_TO_ACTIVE_ELEMENT,
-            {"value": keys_to_typing(value)}))
+            element.send_keys(value)
+        ))
         return self
 
     def key_up(self, value, element=None):
@@ -221,8 +220,8 @@ class ActionChains(object):
         :Args:
          - to_element: The WebElement to move to.
         """
-        self._actions.append(lambda: self._driver.execute(
-            Command.MOVE_TO, {'element': to_element.id}))
+        #self._actions.append(lambda: self._driver.execute(
+        #    Command.MOVE_TO, {'element': to_element.id}))
         return self
 
     def move_to_element_with_offset(self, to_element, xoffset, yoffset):
